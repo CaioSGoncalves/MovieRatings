@@ -1,2 +1,4 @@
 *.csv
 easy-pipelines/.idea
+easy-pipelines/venv
+easy-pipelines/__pycache__
