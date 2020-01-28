@@ -3,7 +3,8 @@
 Pipeline de dados utilizando o dataset disponibilizado pela GroupLens: https://grouplens.org/datasets/movielens/latest/. 
 
 O projeto foi implementado dentro da Google Cloud Platform com algumas limitações do período gratuito.
-O streaming de dados ainda está em desenvolvimento. Por enquanto o Batch Job executa a partir de um DeltaLake criado a partir de um único arquivo csv.
+
+O streaming de dados ainda está em desenvolvimento. Por enquanto o Batch Job executa a partir de um DeltaLake criado a partir dos arquivos csv disponibilizados.
 
 GCP Products:
 - Cloud Dataproc (Apache Spark + Apache Zeppelin)
