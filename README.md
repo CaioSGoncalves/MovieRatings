@@ -35,7 +35,7 @@ Tech-Stack:
 - Apache Airflow: orquestrador dos Batch Jobs
 - Apache Kakfa: usado como fila de mensagem de eventos
 - GCP Storage: Data Lake
-- Delta Lake: camada que provém transações ACID and validação de Schema para o Data Lake
+- Delta Lake: camada que provém transações ACID e validação de Schema para o Data Lake
 
 Objetivos do projeto:
 - Geração de dados artificialmente
