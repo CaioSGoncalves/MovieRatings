@@ -6,6 +6,10 @@ O projeto foi implementado dentro da Google Cloud Platform com algumas limitaç�
 
 ![Bath](diagrams/Batch.png)
 
+![Streaming](diagrams/Streaming.png)
+
+O streaming de dados ainda está em desenvolvimento. Por enquanto o Batch Job executa a partir de um DeltaLake criado a partir dos arquivos csv disponibilizados.
+
 Arquitetura do projeto:
 - Geração de dados artificialmente
 - Ingestão desses dados no Kafka
@@ -44,5 +48,3 @@ Tech-Stack:
 - Apache Kakfa: usado como fila de mensagem de eventos
 - GCP Storage: Data Lake
 - Delta Lake: camada que provém transações ACID e validação de Schema para o Data Lake
-
-O streaming de dados ainda está em desenvolvimento. Por enquanto o Batch Job executa a partir de um DeltaLake criado a partir dos arquivos csv disponibilizados.
