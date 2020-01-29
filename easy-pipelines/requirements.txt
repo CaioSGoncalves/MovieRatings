@@ -1,4 +1,0 @@
-flask
-google-api-python-client
-google-cloud-dataproc
-google-cloud-storage

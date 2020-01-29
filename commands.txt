@@ -1,0 +1,37 @@
+CREATE CLUSTER (Spark Version: 2.4 + 2 workers + Apache Zeppelin):
+gcloud beta dataproc clusters create cluster-3bff --enable-component-gateway --region southamerica-east1 --subnet default --zone southamerica-east1-a --master-machine-type n1-standard-1 --master-boot-disk-size 100 --num-workers 2 --worker-machine-type n1-standard-1 --worker-boot-disk-size 100 --image-version 1.4-debian9 --optional-components ZEPPELIN --project sincere-bongo-264115
+
+
+SUBMIT JOB delta_lake_ingestion:
+gcloud dataproc jobs submit pyspark \
+    --cluster cluster-3bff --region southamerica-east1 \
+    --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0 \
+    gs://teste-caio/jobs/delta_lake_ingestion.py
+
+
+SUBMIT JOB daily_job:
+gcloud dataproc jobs submit pyspark \
+    --cluster cluster-3bff --region southamerica-east1 \
+    --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0 \
+    gs://teste-caio/jobs/daily_job.py
+
+
+SET Zeppelin spark_submit_packages:
+/usr/lib/zeppelin/conf/zeppelin-env.sh
+export SPARK_SUBMIT_OPTIONS="--packages io.delta:delta-core_2.11:0.5.0"
+
+
+
+
+CREATE Airflow VM:
+
+gcloud beta compute --project=sincere-bongo-264115 instances create airflow-1 --zone=southamerica-east1-a --machine-type=n1-standard-1 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=main-284@sincere-bongo-264115.iam.gserviceaccount.com --scopes=https://www.googleapis.com/auth/cloud-platform --image=ubuntu-minimal-1804-bionic-v20200127 --image-project=ubuntu-os-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=airflow-1 --reservation-affinity=any
+
+gcloud compute --project=sincere-bongo-264115 firewall-rules create airflow-ingress --direction=INGRESS --priority=8080 --network=default --action=ALLOW --rules=tcp --source-ranges=0.0.0.0/0
+
+nano ~/airflow/airflow.cfg 
+max_threads = 1
+
+airflow scheduler
+
+apt-get install google-cloud-sdk
