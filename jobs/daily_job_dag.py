@@ -15,5 +15,5 @@ t1 = BashOperator(
     bash_command='gcloud dataproc jobs submit pyspark \
                 --cluster cluster-3bff --region southamerica-east1 \
                 --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0 \
-                gs://teste-caio/jobs/daily_job.py',
+                gs://teste-caio/movie_ratings/jobs/daily_job.py',
     dag=dag)

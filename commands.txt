@@ -6,14 +6,14 @@ SUBMIT JOB delta_lake_ingestion:
 gcloud dataproc jobs submit pyspark \
     --cluster cluster-3bff --region southamerica-east1 \
     --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0 \
-    gs://teste-caio/jobs/delta_lake_ingestion.py
+    gs://teste-caio/movie_ratings/jobs/delta_lake_ingestion.py
 
 
 SUBMIT JOB daily_job:
 gcloud dataproc jobs submit pyspark \
     --cluster cluster-3bff --region southamerica-east1 \
     --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0 \
-    gs://teste-caio/jobs/daily_job.py
+    gs://teste-caio/movie_ratings/jobs/daily_job.py
 
 
 SET Zeppelin spark_submit_packages:

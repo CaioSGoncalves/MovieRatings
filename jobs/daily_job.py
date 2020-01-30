@@ -5,10 +5,10 @@ from datetime import date
 sc = SparkContext()
 spark = SparkSession(sc)
 
-movies = spark.read.format('delta').load("gs://teste-caio/delta/movies")
+movies = spark.read.format('delta').load("gs://teste-caio/movie_ratings/delta/movies")
 movies.registerTempTable("movies")
 
-ratings = spark.read.format('delta').load("gs://teste-caio/delta/ratings")
+ratings = spark.read.format('delta').load("gs://teste-caio/movie_ratings/delta/ratings")
 ratings.registerTempTable("ratings")
 
 most_rated_movies_query = """
@@ -30,5 +30,4 @@ LIMIT 100
 """
 
 most_and_better_rated_movies = spark.sql(most_and_better_rated_movies_query)
-most_and_better_rated_movies.write.json(f"gs://teste-caio/output/movie_ratings_daily/{str(date.today())}.json")
-# ratings.write.format("delta").saveAsTable("movies_rating.ratings")
+most_and_better_rated_movies.write.json(f"gs://teste-caio/movie_ratings/output/movie_ratings_daily/{str(date.today())}.json")
