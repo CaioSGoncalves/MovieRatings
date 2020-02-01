@@ -4,9 +4,9 @@ Pipeline de dados utilizando o dataset disponibilizado pela GroupLens: https://g
 
 O projeto foi implementado dentro da Google Cloud Platform com algumas limitações do período gratuito.
 
-![Bath](diagrams/Batch.png)
-
 ![Streaming](diagrams/Streaming.png)
+
+![Bath](diagrams/Batch.png)
 
 Arquitetura do projeto:
 - Geração de dados artificialmente
