@@ -1,0 +1,25 @@
+Dataproc Submit Jobs to Cluster
+
+SUBMIT JOB TO INGEST MOVIES AND RATINGS DATA FROM csv:
+
+gcloud dataproc jobs submit pyspark \
+    --cluster cluster-3bff --region southamerica-east1 \
+    --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0 \
+    gs://teste-caio/movie_ratings/jobs/csv_ingestion.py
+
+
+
+SUBMIT JOB TO INGEST NEW RATINGS DATA FROM Kafka:
+
+gcloud dataproc jobs submit pyspark \
+    --cluster cluster-3bff --region southamerica-east1 \
+    --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.4 \
+    gs://teste-caio/movie_ratings/jobs/kafka_ingestion.py
+
+
+
+SUBMIT JOB daily_job:
+gcloud dataproc jobs submit pyspark \
+    --cluster cluster-3bff --region southamerica-east1 \
+    --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0 \
+    gs://teste-caio/movie_ratings/jobs/daily_job.py
