@@ -19,8 +19,7 @@ gcloud dataproc jobs submit pyspark \
 SET Zeppelin spark_submit_packages:
 /usr/lib/zeppelin/conf/zeppelin-env.sh
 export SPARK_SUBMIT_OPTIONS="--packages io.delta:delta-core_2.11:0.5.0"
-
-
+export SPARK_SUBMIT_OPTIONS="--packages io.delta:delta-core_2.11:0.5.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.4"
 
 
 CREATE Airflow VM:
@@ -35,3 +34,12 @@ max_threads = 1
 airflow scheduler
 
 apt-get install google-cloud-sdk
+
+
+
+KAFKA VM in GCP Marketplace:
+kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+kafka-topics.sh --list --zookeeper localhost:2181
+
+kafka-console-producer.sh --broker-list localhost:9092 --topic test
+kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
