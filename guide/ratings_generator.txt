@@ -1,0 +1,13 @@
+In a ComputeEngine VM
+
+Install pip3 and packages:
+    sudo apt-get install python3-pip
+    sudo pip3 install kafka-python
+
+Copy generate_ratings folder to VM:
+    gsutil cp -R gs://teste-caio/movie_ratings/generate_ratings/ .
+
+Insert data in artificial_ratings.csv as desired
+
+Run generate_ratings/main.py:
+    sudo generate_ratings/python3 main.py

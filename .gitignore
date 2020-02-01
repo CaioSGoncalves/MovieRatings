@@ -3,3 +3,5 @@ easy-pipelines/.idea
 easy-pipelines/venv
 easy-pipelines/__pycache__
 zeppelin/volumes
+generate_ratings/.idea
+generate_ratings/venv
