@@ -1,3 +1,4 @@
+import csv
 from kafka import KafkaProducer
 
 
@@ -23,10 +24,15 @@ def connect_kafka_producer():
     finally:
         return _producer
 
+def get_artificial_ratings():
+    reader = csv.DictReader(open("artificial_ratings.csv"))
+    return [row for row in reader]
 
 if __name__ == '__main__':
     kafka_producer = connect_kafka_producer()
-    publish_message(kafka_producer, 'movieRatings', "teste", "{'userId': 1, 'movieId': 296, 'rating': 5.0, 'timestamp': 1147880044}")
+
+    for message in get_artificial_ratings():
+        publish_message(kafka_producer, 'movieRatings', "", str(message))
 
     if kafka_producer is not None:
         kafka_producer.close()

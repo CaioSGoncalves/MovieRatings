@@ -10,4 +10,5 @@ Copy generate_ratings folder to VM:
 Insert data in artificial_ratings.csv as desired
 
 Run generate_ratings/main.py:
-    sudo generate_ratings/python3 main.py
+    cd generate_ratings/
+    sudo python3 main.py
