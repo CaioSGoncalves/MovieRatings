@@ -51,3 +51,11 @@ kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic movieRatings
 Kafka-Python RatingsGenerator
 sudo apt-get install python3-pip
 sudo pip3 install kafka-python
+
+Python Flask - Generate Trips to Kafka:
+    http://34.87.253.30:5000/push-trips
+
+Grafana Dashboard
+    url: https://34.87.253.30:3000/d/D800QM8Wz/nyc_trips?orgId=1&from=1580684239592&to=1580684539592&refresh=10s
+    username: guest
+    password: guest
