@@ -14,7 +14,7 @@ Arquitetura do projeto:
 - Ingestão no Spark
 - Inserção desses dados no Delta Lake
 - Leitura dos dados do Delta Lake no Batch Job diário
-- Inserção dos dados processados no Data Lake no formato json (também poderia salvar num banco de dados relacional ou NoSQL)
+- Inserção dos dados processados do Data Lake no MySQL (Cloud SQL)
 
 GCP Products:
 - Cloud Dataproc (Apache Spark + Apache Zeppelin)
