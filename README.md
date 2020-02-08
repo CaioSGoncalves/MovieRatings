@@ -46,3 +46,6 @@ Tech-Stack:
 - Apache Kakfa: usado como fila de mensagem de eventos
 - GCP Storage: Data Lake
 - Delta Lake: camada que provém transações ACID e validação de Schema para o Data Lake
+
+
+Se tiver interesse em ver o resultado final no Grafana favor enviar email para caiosgon3@gmail.com
