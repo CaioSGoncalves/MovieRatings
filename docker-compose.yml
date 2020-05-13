@@ -18,3 +18,46 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper-server
+
+
+  airflow-webserver:
+    container_name: "airflow-webserver"
+    image: puckel/docker-airflow
+    # restart: always
+    depends_on:
+        - postgres
+    environment:
+        - LOAD_EX=n
+        - EXECUTOR=Local
+        # - AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT=google-cloud-platform://?extra__google_cloud_platform__key_path=/key_file.json&extra__google_cloud_platform__scope=https://www.googleapis.com/auth/cloud-platform&extra__google_cloud_platform__project=sincere-bongo-264115&extra__google_cloud_platform__num_retries=5
+        # - AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT=google-cloud-platform://?extra__google_cloud_platform__key_path=/key_file.json&extra__google_cloud_platform__scope=https://www.googleapis.com/auth/cloud-platform&extra__google_cloud_platform__project=sincere-bongo-264115
+
+
+        - FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
+        - AIRFLOW__CORE__FERNET_KEY='81HqDtbqAywKSOumSha3BhWNOdQ26slT6K0YaZeZyPs='
+        # docker run puckel/docker-airflow python -c "from cryptography.fernet import Fernet; FERNET_KEY = Fernet.generate_key().decode(); print(FERNET_KEY)"
+
+    logging:
+        options:
+            max-size: 10m
+            max-file: "3"
+    volumes:
+        - ./dags:/usr/local/airflow/dags
+        - ./requirements.txt:/requirements.txt
+        - ./key_file.json:/key_file.json
+        # - ./plugins:/usr/local/airflow/plugins
+    ports:
+        - "8080:8080"
+    command: webserver
+
+  postgres:
+    container_name: "postgres"
+    image: postgres:9.6
+    environment:
+        - POSTGRES_USER=airflow
+        - POSTGRES_PASSWORD=airflow
+        - POSTGRES_DB=airflow
+    logging:
+        options:
+            max-size: 10m
+            max-file: "3"
