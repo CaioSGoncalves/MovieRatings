@@ -1,0 +1,12 @@
+# Create VM to run docker containers (Google's Container-Optimized OS): 
+gcloud beta compute --project=sincere-bongo-264115 instances create instance-1 --zone=southamerica-east1-a --machine-type=n1-standard-1 --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=529567592639-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/cloud-platform --tags=http-server,https-server --image=cos-69-10895-385-0 --image-project=cos-cloud --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=instance-1 --reservation-affinity=any
+
+# docker-compose container alias: (https://cloud.google.com/community/tutorials/docker-compose-on-container-optimized-os) 
+echo alias docker-compose="'"'docker run --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v "$PWD:$PWD" \
+    -w="$PWD" \
+    docker/compose:1.24.0'"'" >> ~/.bashrc
+
+# Reload bash config:
+source ~/.bashrc
