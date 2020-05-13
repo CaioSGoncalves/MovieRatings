@@ -5,3 +5,4 @@ easy-pipelines/__pycache__
 zeppelin/volumes
 generate_ratings/.idea
 generate_ratings/venv
+key_file.json
