@@ -1,5 +1,5 @@
 # Enter Kafka docker container:
-docker exec -it movieratings_kafka-server1_1 /bin/bash
+ docker exec -it kafka-server /bin/bash
 
 
 # Create topic:
