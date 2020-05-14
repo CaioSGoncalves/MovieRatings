@@ -10,3 +10,11 @@ echo alias docker-compose="'"'docker run --rm \
 
 # Reload bash config:
 source ~/.bashrc
+
+# Configure GCP commands:
+toolbox
+
+# Copy bucket file:
+mkdir /home/caiosgon3/bucket-folder
+toolbox --bind=/home/caiosgon3/bucket-folder:/my-bucket <<< "gsutil cp -r gs://teste-caio/movie_ratings/generate_ratings/ /my-bucket"
+cp /home/caiosgon3/bucket-folder/generate_ratings/artificial_ratings.csv /home/caiosgon3/MovieRatings/generate_ratings/
