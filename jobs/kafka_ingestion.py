@@ -9,7 +9,7 @@ spark = SparkSession(sc)
 df = spark \
   .readStream \
   .format("kafka") \
-  .option("kafka.bootstrap.servers", "10.158.0.57:9092") \
+  .option("kafka.bootstrap.servers", "instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal:9092") \
   .option("subscribe", "movieRatings") \
   .load()
 

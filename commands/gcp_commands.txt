@@ -18,3 +18,29 @@ toolbox
 mkdir /home/caiosgon3/bucket-folder
 toolbox --bind=/home/caiosgon3/bucket-folder:/my-bucket <<< "gsutil cp -r gs://teste-caio/movie_ratings/generate_ratings/ /my-bucket"
 cp /home/caiosgon3/bucket-folder/generate_ratings/artificial_ratings.csv /home/caiosgon3/MovieRatings/generate_ratings/
+
+
+# Playground cluster (for Zeppelin Access):
+gcloud beta dataproc clusters create playground-cluster --enable-component-gateway --region southamerica-east1 --subnet default --zone southamerica-east1-a --single-node --master-machine-type n1-standard-1 --master-boot-disk-size 100 --worker-boot-disk-size 100 --image-version 1.4-debian9 --optional-components ZEPPELIN --project sincere-bongo-264115 --bucket staging.sincere-bongo-264115.appspot.com
+
+# SET Zeppelin spark_submit_packages:
+/usr/lib/zeppelin/conf/zeppelin-env.sh
+export SPARK_SUBMIT_OPTIONS="--packages io.delta:delta-core_2.11:0.5.0"
+export SPARK_SUBMIT_OPTIONS="--packages io.delta:delta-core_2.11:0.5.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.4"
+
+
+
+# Streaming cluster (for consume KafkaTopics):
+gcloud beta dataproc clusters create streaming-cluster --enable-component-gateway --region southamerica-east1 --subnet default --zone southamerica-east1-a --single-node --master-machine-type n1-standard-1 --master-boot-disk-size 100 --worker-boot-disk-size 100 --image-version 1.4-debian9 --optional-components ZEPPELIN --project sincere-bongo-264115 --bucket staging.sincere-bongo-264115.appspot.com
+
+# Submit Spark Job to consume KafkaTopics:
+gcloud dataproc jobs submit pyspark \
+    --cluster streaming-cluster --region southamerica-east1 \
+    --properties spark.jars.packages=io.delta:delta-core_2.11:0.5.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.4 \
+    gs://teste-caio/movie_ratings/jobs/kafka_ingestion.py
+
+
+Internal DNS:
+    [INSTANCE_NAME].[ZONE].c.[PROJECT_ID].internal
+    instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal
+
