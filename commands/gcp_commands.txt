@@ -21,7 +21,7 @@ cp /home/caiosgon3/bucket-folder/generate_ratings/artificial_ratings.csv /home/c
 
 
 # Playground cluster (for Zeppelin Access):
-gcloud beta dataproc clusters create playground-cluster --enable-component-gateway --region southamerica-east1 --subnet default --zone southamerica-east1-a --single-node --master-machine-type n1-standard-1 --master-boot-disk-size 100 --worker-boot-disk-size 100 --image-version 1.4-debian9 --optional-components ZEPPELIN --project sincere-bongo-264115 --bucket staging.sincere-bongo-264115.appspot.com
+gcloud beta dataproc clusters create playground-cluster --enable-component-gateway --region southamerica-east1 --subnet default --zone southamerica-east1-a --single-node --master-machine-type n1-standard-2 --master-boot-disk-size 100 --worker-boot-disk-size 100 --image-version 1.4-debian9 --optional-components ZEPPELIN --project sincere-bongo-264115 --bucket staging.sincere-bongo-264115.appspot.com
 
 # SET Zeppelin spark_submit_packages:
 /usr/lib/zeppelin/conf/zeppelin-env.sh
