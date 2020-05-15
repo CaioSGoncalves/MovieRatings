@@ -9,16 +9,16 @@ spark = SparkSession(sc)
 df = spark \
   .readStream \
   .format("kafka") \
-  .option("kafka.bootstrap.servers", "instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal:9092") \
+  .option("kafka.bootstrap.servers", "instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal:9094") \
   .option("subscribe", "movieRatings") \
   .load()
 
 # SETTING SCHEMA AND FORMATTING STREAMING DATA
 schema = StructType([ 
                         StructField("userId", IntegerType(), True),
-                        StructField("movieId", StringType(), True),
-                        StructField("rating", FloatType(), True),
-                        StructField("timestamp", FloatType(), True)
+                        StructField("movieId", IntegerType(), True),
+                        StructField("rating", DoubleType(), True),
+                        StructField("timestamp", IntegerType(), True)
                     ])
                         
 data = df.selectExpr("CAST(value AS STRING)")\
@@ -31,3 +31,7 @@ data = df.selectExpr("CAST(value AS STRING)")\
     .outputMode("append")
     .option("checkpointLocation", "gs://teste-caio/movie_ratings/delta/ratings/_checkpoints/etl-from-kafka")
     .start("gs://teste-caio/movie_ratings/delta/ratings") )
+
+
+# print(query.status)
+# print(query.lastProgress)
