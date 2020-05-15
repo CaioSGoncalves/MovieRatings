@@ -1,5 +1,5 @@
 # Enter Kafka docker container:
- docker exec -it kafka-server /bin/bash
+ docker exec -it kafka /bin/bash
 
 
 # Create topic:

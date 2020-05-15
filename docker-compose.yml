@@ -1,28 +1,20 @@
 version: "3"
 
 services:
-  zookeeper-server:
+  zookeeper:
     container_name: "zookeeper-server"
-    image: 'bitnami/zookeeper:latest'
+    image: wurstmeister/zookeeper
     ports:
-      - '2181:2181'
-    environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
+      - "2181:2181"
       
-  kafka-server:
-    container_name: "kafka-server"
-    image: 'bitnami/kafka:latest'
+  kafka:
+    container_name: "kafka"
+    image: 'wurstmeister/kafka:latest'
     ports:
       - '9092:9092'
-      - '29092:29092'
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181
-      - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,PLAINTEXT_HOST://:29092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-server:9092,PLAINTEXT_HOST://localhost:29092
-    depends_on:
-      - zookeeper-server
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
 
   airflow-webserver:
@@ -72,4 +64,4 @@ services:
     # image: ratings-generator:latest
     build: ./generate_ratings/
     depends_on: 
-      - kafka-server
+      - kafka
