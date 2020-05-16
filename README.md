@@ -2,50 +2,48 @@
 
 Pipeline de dados utilizando o dataset disponibilizado pela GroupLens: https://grouplens.org/datasets/movielens/latest/. 
 
+Informações do dataset:
+- movie.csv: Dados dos Filmes
+- rating.csv: Dados de Avaliação dos Filmes
+
 O projeto foi implementado dentro da Google Cloud Platform com algumas limitações do período gratuito.
 
 ![Streaming](diagrams/Streaming.png)
 
 ![Bath](diagrams/Batch.png)
 
-Arquitetura do projeto:
-- Geração de dados artificialmente
+Workflow do projeto:
+- Geração de novos registros de Rating artificialmente
 - Ingestão desses dados no Kafka
 - Ingestão no Spark
 - Inserção desses dados no Delta Lake
-- Leitura dos dados do Delta Lake no Batch Job diário
-- Inserção dos dados processados do Data Lake no MySQL (Cloud SQL)
+- Diariamente: ETL dos dados do Delta Lake para o MySQL
 
-GCP Products:
+Produtos GCP utilizados:
 - Cloud Dataproc (Apache Spark + Apache Zeppelin)
 - Cloud Storage
-- Cloud Marketplace (Apache Kafka)
-- AppEngine (Apache Airflow)
-- Cloud Functions (Geração de dados artificialmente)
+- Cloud ComputeEngine VM (docker containers: Kafka, Zookeeper, Airflow, MySQL)
 
-Informações do dataset:
-- movie.csv: Dados dos Filmes
-- rating.csv: Dados de Avaliação dos Filmes
+Streaming:
+- Ratings Generator -> Geração de novos registros de Rating -> Apache Kafka -> Spark -> Delta Lake
 
-Job:
-- Selecionar os TOP 1000 filmes com maiores números de Avaliação
-- Depois selecionar os TOP 100 com melhores Avaliações
+Job ETL:
+- Selecionar os TOP 1000 filmes com maiores números de Rating
+- Depois selecionar os TOP 100 com melhores Rating
 
 Batch:
 - Execução do Job diariamente
-- Delta Lake -> Spark -> json (Datetime -> Result)
+- Delta Lake -> Spark -> MySQL
 - Orquestrador: Apache Airflow
-
-Streaming:
-- Cloud Function (Ratings Generator) -> Apache Kafka -> Spark -> Delta Lake
 
 Tech-Stack:
 - Apache Spark: framework de processamento
-- Apache Zeppelin: usado para testes e visualizações
 - Apache Airflow: orquestrador dos Batch Jobs
 - Apache Kakfa: usado como fila de mensagem de eventos
 - GCP Storage: Data Lake
 - Delta Lake: camada que provém transações ACID e validação de Schema para o Data Lake
+- MySQL para simular um DataWarehouse com o resultado do processamento
+- Apache Zeppelin: usado para testes e visualizações
 
 
-Se tiver interesse em ver o resultado final no Grafana favor enviar email para caiosgon3@gmail.com
+Se tiver interesse em ver o resultado final do projeto, favor enviar email para caiosgon3@gmail.com
