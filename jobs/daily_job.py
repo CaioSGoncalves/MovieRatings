@@ -24,7 +24,7 @@ most_rated_movies.registerTempTable("most_rated_movies")
 
 
 most_and_better_rated_movies_query = """
-SELECT * FROM most_rated_movies
+SELECT mrm.*, current_date() as date FROM most_rated_movies mrm
 ORDER BY ratings_mean DESC
 LIMIT 100
 """
