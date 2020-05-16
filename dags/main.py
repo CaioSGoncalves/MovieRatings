@@ -27,6 +27,7 @@ t1 = DataprocClusterCreateOperator(
 t2 = DataProcPySparkOperator(
     task_id="run",
     gcp_conn_id='google_cloud_default',
+    project_id='sincere-bongo-264115',
     main="gs://teste-caio/movie_ratings/jobs/daily_job.py",
     job_name='test',
     cluster_name="airflow-cluster",
