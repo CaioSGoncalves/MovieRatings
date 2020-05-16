@@ -16,6 +16,7 @@ project_id = 'sincere-bongo-264115'
 region = 'southamerica-east1'
 zone = 'southamerica-east1-a'
 cluster_name = 'airflow-cluster'
+image_version = "1.4-debian9"
 storage_bucket = 'staging.sincere-bongo-264115.appspot.com'
 job_file = 'gs://teste-caio/movie_ratings/jobs/daily_job.py'
 properties = {"spark.jars.packages": "io.delta:delta-core_2.11:0.5.0"}
@@ -30,6 +31,7 @@ t1 = DataprocClusterCreateOperator(
     storage_bucket=storage_bucket,
     num_workers=0,
     master_machine_type='n1-standard-2',
+    image_version=image_version,
     dag=dag)
 
 
