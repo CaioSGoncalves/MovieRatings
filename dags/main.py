@@ -18,7 +18,7 @@ zone = 'southamerica-east1-a'
 cluster_name = 'airflow-cluster'
 storage_bucket = 'staging.sincere-bongo-264115.appspot.com'
 job_file = 'gs://teste-caio/movie_ratings/jobs/daily_job.py'
-properties = {"spark.jars.packages": "io.delta:delta-core_2.11:0.5.0"}
+pyspark_jars = ["io.delta:delta-core_2.11:0.5.0"]
 
 t1 = DataprocClusterCreateOperator(
     task_id="create_cluster",
@@ -39,7 +39,7 @@ t2 = DataProcPySparkOperator(
     project_id=project_id,
     main=job_file,
     job_name='test',
-    dataproc_spark_properties=properties,
+    dataproc_pyspark_jars=pyspark_jars,
     cluster_name=cluster_name,
     region=region,
     dag=dag)
