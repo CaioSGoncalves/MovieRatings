@@ -7,7 +7,7 @@ Informações do dataset:
 - rating.csv: Dados de Avaliação dos Filmes
 
 Estrutura de pastas:
-- ./dags/ -> DAGs do Airflow
+- ./dags -> DAGs do Airflow
 - ./commands -> alguns comandos de configuração do GCP e do Kafka
 - ./generate-ratings -> projeto python para Geração de Ratings
 - ./zeppelin-notebooks -> notebooks do Apache Zeppelin
