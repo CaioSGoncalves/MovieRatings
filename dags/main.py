@@ -29,7 +29,7 @@ t2 = DataProcPySparkOperator(
     gcp_conn_id='google_cloud_default',
     main="gs://teste-caio/movie_ratings/jobs/daily_job.py",
     job_name='test',
-    cluster_name="test-cluster",
+    cluster_name="airflow-cluster",
     region='southamerica-east1',
     dag=dag)
 
@@ -37,7 +37,7 @@ t2 = DataProcPySparkOperator(
 t3 = DataprocClusterDeleteOperator(
     task_id='delete_cluster',
     project_id='sincere-bongo-264115',
-    cluster_name='test-cluster',
+    cluster_name='airflow-cluster',
     region='southamerica-east1',
     dag=dag)
 
