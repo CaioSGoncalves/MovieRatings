@@ -2,7 +2,7 @@ version: "3"
 
 services:
   zookeeper:
-    container_name: "zookeeper-server"
+    container_name: "zookeeper"
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
@@ -20,6 +20,9 @@ services:
       KAFKA_LISTENERS: INSIDE://:9092,OUTSIDE://:9094
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_CREATE_TOPICS: "movieRatings:1:1"
+    depends_on:
+        - zookeeper
 
 
   airflow-webserver:
@@ -64,6 +67,7 @@ services:
             max-size: 10m
             max-file: "3"
 
+# docker build . --tag=ratings-generator:latest
   ratings-generator:
     container_name: "ratings-generator"
     # image: ratings-generator:latest
@@ -73,6 +77,7 @@ services:
 
 
   mysql-db:
+    container_name: "mysql-db"
     image: mysql:5.7
     restart: always
     environment:

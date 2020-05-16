@@ -3,8 +3,8 @@
 
 
 # Create topic:
-kafka-topics.sh --create --zookeeper zookeeper-server:2181 --replication-factor 1 --partitions 1 --topic movieRatings
-kafka-topics.sh --list --zookeeper zookeeper-server:2181
+kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic movieRatings
+kafka-topics.sh --list --zookeeper zookeeper:2181
 
 
 # Test:

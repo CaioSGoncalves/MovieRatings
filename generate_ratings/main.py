@@ -33,6 +33,7 @@ def get_artificial_ratings():
 
 
 if __name__ == '__main__':
+    time.sleep(30)
     kafka_producer = connect_kafka_producer()
 
     for message in get_artificial_ratings():
