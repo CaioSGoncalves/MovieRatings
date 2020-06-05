@@ -2,17 +2,18 @@
 
 Pipeline de dados utilizando o dataset disponibilizado pela GroupLens: https://grouplens.org/datasets/movielens/latest/. 
 
-*Informações do dataset*:
+**Informações do dataset:**
 - movie.csv: Dados dos Filmes
 - rating.csv: Dados de Avaliação dos Filmes
 
 
+**Infraestrutura:**
 O projeto foi implementado dentro da Google Cloud Platform com algumas limitações do período gratuito.
 
 Para o providenciamento da infraestrutura no GCP, foi utilizado o Terraform como IaC (Infra as Code).
 
 
-Estrutura de pastas:
+**Estrutura de pastas:**
 - ./dags -> DAGs do Airflow
 - ./commands -> alguns comandos de configuração do GCP e do Kafka
 - ./generate-ratings -> projeto python para Geração de Ratings
@@ -25,31 +26,32 @@ Estrutura de pastas:
 
 ![Bath](diagrams/Batch.png)
 
-Workflow do projeto:
+
+**Workflow do projeto:**
 - Geração de novos registros de Rating artificialmente
 - Ingestão desses dados no Kafka
 - Ingestão no Spark
 - Inserção desses dados no Delta Lake
 - Diariamente: ETL dos dados do Delta Lake para o MySQL
 
-Produtos GCP utilizados:
+**Produtos GCP utilizados:**
 - Cloud Dataproc (Apache Spark + Apache Zeppelin)
 - Cloud Storage
 - Cloud ComputeEngine VM (docker containers: Kafka, Zookeeper, Airflow, MySQL)
 
-Streaming:
+**Streaming:**
 - Ratings Generator -> Geração de novos registros de Rating -> Apache Kafka -> Spark -> Delta Lake
 
-Job ETL:
+ **Job ETL:**
 - Selecionar os TOP 1000 filmes com maiores números de Rating
 - Depois selecionar os TOP 100 com melhores Rating
 
-Batch:
+**Batch:**
 - Execução do Job diariamente
 - Delta Lake -> Spark -> MySQL
 - Orquestrador: Apache Airflow
 
-Tech-Stack:
+**Tech-Stack:**
 - Terraform: provisionamento da infraestrutura em código
 - Apache Spark: framework de processamento
 - Apache Airflow: orquestrador dos Batch Jobs
