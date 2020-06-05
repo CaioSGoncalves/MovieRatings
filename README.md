@@ -6,17 +6,20 @@ Informações do dataset:
 - movie.csv: Dados dos Filmes
 - rating.csv: Dados de Avaliação dos Filmes
 
+
+O projeto foi implementado dentro da Google Cloud Platform com algumas limitações do período gratuito.
+
+Para o providenciamento da infraestrutura no GCP, foi utilizado o Terraform como IaC (Infra as Code).
+
+
 Estrutura de pastas:
 - ./dags -> DAGs do Airflow
 - ./commands -> alguns comandos de configuração do GCP e do Kafka
 - ./generate-ratings -> projeto python para Geração de Ratings
 - ./zeppelin-notebooks -> notebooks do Apache Zeppelin
 - ./jobs -> jobs pyspark
+- ./terraform -> arquivos do Terraform e scripts de inicialização da VM e clusters
 - docker-compose.yml -> docker containers do projeto
-
-
-O projeto foi implementado dentro da Google Cloud Platform com algumas limitações do período gratuito.
-Para o providenciamento da infraestrutura no GCP, foi utilizado o Terraform (pasta ./terraform) como IaC (Infra as Code).
 
 ![Streaming](diagrams/Streaming.png)
 
