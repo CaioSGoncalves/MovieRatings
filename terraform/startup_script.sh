@@ -27,7 +27,7 @@ apt-get update
 apt-get install docker-ce docker-ce-cli containerd.io -y
 
 sudo groupadd docker
-usermod -aG docker $USER
+sudo usermod -aG docker $USER
 newgrp docker 
 
 # Install docker-compose
