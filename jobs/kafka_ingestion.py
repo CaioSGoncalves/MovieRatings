@@ -2,6 +2,7 @@ from pyspark import SparkContext
 from pyspark.sql.session import SparkSession
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
+import time
 
 sc = SparkContext()
 spark = SparkSession(sc)
@@ -10,7 +11,7 @@ spark = SparkSession(sc)
 df = spark \
   .readStream \
   .format("kafka") \
-  .option("kafka.bootstrap.servers", "instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal:9094") \
+  .option("kafka.bootstrap.servers", "terraform-instance.southamerica-east1-b.c.sincere-bongo-264115.internal:9094") \
   .option("subscribe", "movieRatings") \
   .load()
 
@@ -33,6 +34,7 @@ data = df.selectExpr("CAST(value AS STRING)")\
     .option("checkpointLocation", "gs://teste-caio/movie_ratings/delta/ratings/_checkpoints/etl-from-kafka")
     .start("gs://teste-caio/movie_ratings/delta/ratings") )
 
-
-# print(query.status)
-# print(query.lastProgress)
+# while True:
+#   time.sleep(30)
+#   print(query.status)
+#   print(query.lastProgress)

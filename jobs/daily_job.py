@@ -34,7 +34,7 @@ most_and_better_rated_movies = spark.sql(most_and_better_rated_movies_query)
 most_and_better_rated_movies.write \
     .format("jdbc") \
     .option("driver", "com.mysql.jdbc.Driver") \
-    .option("url", "jdbc:mysql://instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal:3307/test") \
+    .option("url", "jdbc:mysql://terraform-instance.southamerica-east1-b.c.sincere-bongo-264115.internal:3307/test") \
     .option("dbtable", "top_movies") \
     .mode("append") \
     .option("user", "root") \

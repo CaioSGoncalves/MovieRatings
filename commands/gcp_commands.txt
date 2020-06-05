@@ -44,7 +44,7 @@ gcloud dataproc jobs submit pyspark \
 
 Internal DNS:
     [INSTANCE_NAME].[ZONE].c.[PROJECT_ID].internal
-    instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal
+    terraform-instance.southamerica-east1-b.c.sincere-bongo-264115.internal
 
 
 gcloud beta dataproc clusters create playground-cluster --enable-component-gateway --region southamerica-east1 --subnet default --single-node --master-machine-type n1-standard-2 --master-boot-disk-size 100 --image-version 1.4-debian9 --optional-components ZEPPELIN --project sincere-bongo-264115 --bucket staging.sincere-bongo-264115.appspot.com

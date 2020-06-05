@@ -1,3 +1,10 @@
+provider "google" {
+  credentials = "${file("../key_file.json")}"
+  project = "sincere-bongo-264115"
+  region  = "southamerica-east1"
+  zone    = "southamerica-east1-b"
+}
+
 provider "google-beta" {
   credentials = "${file("../key_file.json")}"
   project = "sincere-bongo-264115"
@@ -36,6 +43,12 @@ resource "google_storage_bucket_object" "kafka_ingestion_job" {
   bucket = "teste-caio"
 }
 
+resource "google_storage_bucket_object" "daily_job" {
+  name   = "movie_ratings/jobs/daily_job.py"
+  source = "../jobs/daily_job.py"
+  bucket = "teste-caio"
+}
+
 resource "google_storage_bucket_object" "zeppelin_init" {
   name   = "movie_ratings/zeppelin_init.sh"
   source = "./zeppelin_init.sh"
@@ -66,6 +79,10 @@ resource "google_dataproc_cluster" "streaming-cluster" {
     }
 
   }
+  depends_on = [
+    google_storage_bucket_object.kafka_ingestion_job,
+  ]
+  
 }
 
 # Submit an example pyspark job to a dataproc cluster
@@ -85,16 +102,16 @@ resource "google_dataproc_job" "pyspark" {
 }
 
 resource "google_dataproc_cluster" "playground-cluster" {
+  provider = "google-beta"
   name   = "playground-cluster"
   region = "southamerica-east1"
-  provider = "google-beta"
-  
+
   cluster_config {
     staging_bucket = "staging.sincere-bongo-264115.appspot.com"
 
     master_config {
         num_instances = 1
-        machine_type  = "n1-standard-1"
+        machine_type  = "n1-standard-2"
         disk_config {
           boot_disk_type    = "pd-standard"
           boot_disk_size_gb = 100
@@ -119,5 +136,9 @@ resource "google_dataproc_cluster" "playground-cluster" {
     }
 
   }
+
+  depends_on = [
+    google_storage_bucket_object.zeppelin_init,
+  ]
 
 }
