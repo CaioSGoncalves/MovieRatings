@@ -28,12 +28,16 @@ data = df.selectExpr("CAST(value AS STRING)")\
         .select(from_json("value", schema).alias("data")).select("data.*")
 
 # WRITING STREAMING DATA TO DELTA LAKE
-( data
+query = ( data
     .writeStream
     .format("delta")
     .outputMode("append")
     .option("checkpointLocation", "gs://teste-caio/movie_ratings/delta/ratings/_checkpoints/etl-from-kafka")
     .start("gs://teste-caio/movie_ratings/delta/ratings") )
+
+time.sleep(30)
+print(query.status)
+print(query.lastProgress)
 
 # while True:
 #   time.sleep(30)
