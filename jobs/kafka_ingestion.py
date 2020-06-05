@@ -39,7 +39,7 @@ time.sleep(30)
 print(query.status)
 print(query.lastProgress)
 
-# while True:
-#   time.sleep(30)
-#   print(query.status)
-#   print(query.lastProgress)
+while True:
+  time.sleep(30)
+  print(query.status)
+  print(query.lastProgress)

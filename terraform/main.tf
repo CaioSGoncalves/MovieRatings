@@ -16,7 +16,7 @@ resource "google_compute_instance" "vm_instance" {
   name         = "terraform-instance"
   machine_type = "n1-standard-2"
 
-  metadata_startup_script = "${file("./startup_script.sh")}"
+  metadata_startup_script = "${file("./vm_startup.sh")}"
 
   boot_disk {
     initialize_params {
@@ -55,6 +55,12 @@ resource "google_storage_bucket_object" "zeppelin_init" {
   bucket = "teste-caio"
 }
 
+resource "google_storage_bucket_object" "streaming_cluster_startup" {
+  name   = "movie_ratings/streaming_cluster_startup.sh"
+  source = "./streaming_cluster_startup.sh"
+  bucket = "teste-caio"
+}
+
 resource "google_dataproc_cluster" "streaming-cluster" {
   name   = "streaming-cluster"
   region = "southamerica-east1"
@@ -78,27 +84,26 @@ resource "google_dataproc_cluster" "streaming-cluster" {
       }
     }
 
+    gce_cluster_config {
+      service_account_scopes = [
+        "useraccounts-ro",
+        "storage-rw",
+        "logging-write",
+        "cloud-platform"
+      ]
+    }
+
+    initialization_action {
+        script      = "gs://teste-caio/movie_ratings/streaming_cluster_startup.sh"
+        timeout_sec = 500
+    }
+
   }
+
   depends_on = [
-    google_storage_bucket_object.kafka_ingestion_job,
+    google_storage_bucket_object.streaming_cluster_startup,
   ]
   
-}
-
-# Submit an example pyspark job to a dataproc cluster
-resource "google_dataproc_job" "pyspark" {
-  region = google_dataproc_cluster.streaming-cluster.region
-  force_delete = true
-  placement {
-    cluster_name = google_dataproc_cluster.streaming-cluster.name
-  }
-
-  pyspark_config {
-    main_python_file_uri = "gs://teste-caio/movie_ratings/jobs/kafka_ingestion.py"
-    properties = {
-      "spark.jars.packages" = "io.delta:delta-core_2.11:0.5.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.4"
-    }
-  }
 }
 
 resource "google_dataproc_cluster" "playground-cluster" {
