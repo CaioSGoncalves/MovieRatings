@@ -28,6 +28,8 @@ gcloud beta dataproc clusters create playground-cluster --enable-component-gatew
 export SPARK_SUBMIT_OPTIONS="--packages io.delta:delta-core_2.11:0.5.0"
 export SPARK_SUBMIT_OPTIONS="--packages io.delta:delta-core_2.11:0.5.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.4"
 
+echo export SPARK_SUBMIT_OPTIONS=\"--packages io.delta:delta-core_2.11:0.5.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.4\" >> /usr/lib/zeppelin/conf/zeppelin-env.sh
+
 
 
 # Streaming cluster (for consume KafkaTopics):
@@ -43,4 +45,7 @@ gcloud dataproc jobs submit pyspark \
 Internal DNS:
     [INSTANCE_NAME].[ZONE].c.[PROJECT_ID].internal
     instance-1.southamerica-east1-a.c.sincere-bongo-264115.internal
+
+
+gcloud beta dataproc clusters create playground-cluster --enable-component-gateway --region southamerica-east1 --subnet default --single-node --master-machine-type n1-standard-2 --master-boot-disk-size 100 --image-version 1.4-debian9 --optional-components ZEPPELIN --project sincere-bongo-264115 --bucket staging.sincere-bongo-264115.appspot.com
 

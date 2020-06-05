@@ -7,7 +7,5 @@ generate_ratings/.idea
 generate_ratings/venv
 key_file.json
 *.pyc
-terraform/terraform.tfstate
-terraform/terraform.tfstate.backup
-terraform/.terraform/plugins/darwin_amd64/lock.json
-terraform/.terraform/plugins/darwin_amd64/terraform-provider-google_v3.24.0_x5
+terraform/terraform.*
+terraform/.terraform*
