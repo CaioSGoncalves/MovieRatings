@@ -16,6 +16,7 @@ Estrutura de pastas:
 
 
 O projeto foi implementado dentro da Google Cloud Platform com algumas limitações do período gratuito.
+Para o providenciamento da infraestrutura no GCP, foi utilizado o Terraform (pasta ./terraform) como IaC (Infra as Code).
 
 ![Streaming](diagrams/Streaming.png)
 
@@ -46,6 +47,7 @@ Batch:
 - Orquestrador: Apache Airflow
 
 Tech-Stack:
+- Terraform: provisionamento da infraestrutura em código
 - Apache Spark: framework de processamento
 - Apache Airflow: orquestrador dos Batch Jobs
 - Apache Kakfa: usado como fila de mensagem de eventos
