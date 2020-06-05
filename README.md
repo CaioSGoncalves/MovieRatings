@@ -2,7 +2,7 @@
 
 Pipeline de dados utilizando o dataset disponibilizado pela GroupLens: https://grouplens.org/datasets/movielens/latest/. 
 
-Informações do dataset:
+*Informações do dataset*:
 - movie.csv: Dados dos Filmes
 - rating.csv: Dados de Avaliação dos Filmes
 
