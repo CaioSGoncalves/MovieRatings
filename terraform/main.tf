@@ -14,7 +14,7 @@ provider "google-beta" {
 
 resource "google_compute_instance" "vm_instance" {
   name         = "terraform-instance"
-  machine_type = "n1-standard-1"
+  machine_type = "n1-standard-2"
 
   metadata_startup_script = "${file("./startup_script.sh")}"
 

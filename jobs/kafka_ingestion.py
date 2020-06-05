@@ -13,6 +13,7 @@ df = spark \
   .format("kafka") \
   .option("kafka.bootstrap.servers", "terraform-instance.southamerica-east1-b.c.sincere-bongo-264115.internal:9094") \
   .option("subscribe", "movieRatings") \
+  .option("failOnDataLoss", False) \
   .load()
 
 # SETTING SCHEMA AND FORMATTING STREAMING DATA
