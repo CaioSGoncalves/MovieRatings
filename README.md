@@ -61,5 +61,3 @@ Para o providenciamento da infraestrutura no GCP, foi utilizado o Terraform como
 - MySQL para simular um DataWarehouse com o resultado do processamento
 - Apache Zeppelin: usado para testes e visualizações
 
-
-Se tiver interesse em ver o resultado final do projeto, favor enviar email para caiosgon3@gmail.com
